@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>poq.so url shortener</title>
+<link rel="stylesheet" type="text/css" href="main.css" />
+<script src="./jshash-2.2/md5.js"></script>
+<script src="./prototype.js"></script>
+<script type="text/javascript">
+function ajaxRequest(strResponseURL)
+{
+	var httpObj = new Ajax.Request(
+		strResponseURL, {
+		parameters:Form.serialize('frm'),
+	});
+}
+
+function do_short(f) 
+{
+	f["short_url"].value = b64_md5(f["long_url"].value).substr(0, 5);
+	f["short_url_text"].value = "http://poq.so/" + f["short_url"].value;
+	ajaxRequest("http://poq.so");
+	f["short_url_text"].focus();
+	f["short_url_text"].select();
+
+	document.getElementsByTagName("label")[0].style.display = "inline";
+}
+
+function firstfocus()
+{
+	document.forms[0].elements[1].focus();
+}
+</script>
+</head>
+
+<body onLoad="firstfocus();">
+   <!-- Begin Wrapper -->
+   <div id="wrapper">
+         <!-- Begin Header -->
+		 <div id="header" align="left">
+			 <!--<a href="http://poq.so" onfocus="this.blur()"><img src="logo.png" border="0"></a> -->
+			 <a href="http://poq.so"><h1>URL shortener</h1></a>
+		 </div>
+		 <!-- End Header -->
+		 
+		 <!-- Begin Content -->
+		 <div id="content" align="left">
+			 <div id="form_box"><h3>Paste your long URL here:</h3>
+			 <h1>
+				 <form id="frm" method="post">
+				 <input type="hidden" name="short_url" />
+				 <input style="width:300px;height:25px" tabindex="1" type="text" name="long_url" onKeyPress="if (event.keyCode==13){ do_short(this.form);event.returnValue=false}" />
+				 <input style="width:100px;height:35px;font-family: Verdana;
+				 font-weight: bold;" tabindex="2"
+				 type="button" name="short_btn" value="Shorten"
+				 onClick="do_short(this.form);"/>&nbsp;&nbsp;&nbsp;
+				 <input style="background:#eeeeee;border:none;height:35px;font-size:25px;font-weight:bold;" type="text" name="short_url_text" value="http://poq.so/..." />
+			 </form>
+			 <div id="paste"><label style="display:none;" for="paste">Press Ctrl-C to copy.</label></div>
+		 	</h1>
+		 	</div>
+		 </div>
+		 <!-- End Content -->
+		 
+		 <!-- Begin Footer -->
+		 <div id="footer" align="center">
+			 <h3>&copy; 2011 Taehun Kim</h3>
+	     </div>
+		 <!-- End Footer -->
+		 
+   </div>
+   <!-- End Wrapper -->
+   
+</body>
+</html>
