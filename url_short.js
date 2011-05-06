@@ -4,7 +4,7 @@ var sys = require('sys'),
     http = require('http');
 var parse = require('url').parse;         
 
-var mongodb = require('./mongodb');
+var mongodb = require('./node-mongodb-native/lib/mongodb');
 var host = process.env['MONGO_NODE_DRIVER_HOST'] != null ? process.env['MONGO_NODE_DRIVER_HOST'] : 'localhost';
 var port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NODE_DRIVER_PORT'] : mongodb.Connection.DEFAULT_PORT;
 var db = new mongodb.Db('short_url', new mongodb.Server(host, port, {}), {native_parser:true});
