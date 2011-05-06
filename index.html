@@ -16,6 +16,10 @@ function ajaxRequest(strResponseURL)
 
 function do_short(f) 
 {
+	if (!f["long_url"].value.match(/.+:\/\//)) {
+		f["long_url"].value = "http://" + f["long_url"].value;
+	}
+
 	f["short_url"].value = b64_md5(f["long_url"].value).substr(0, 5);
 	f["short_url_text"].value = "http://poq.so/" + f["short_url"].value;
 	ajaxRequest("http://poq.so");
